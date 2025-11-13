@@ -1,70 +1,42 @@
-/* styles.css - Documento CSS básico */
-
 :root {
-    --background-color: #f0f0f0;
-    --background-color-dark: #121212;
-    --background-color-button: #4CAF50;
-    --background-color-button-hover: #45a049;
-    --background-color-button-dark: #333;
-    --background-color-button-hover-dark: #555;
-    --text-color: #333;
-    --text-color-dark: #ccc;
+    --background-: #FFFFFF;
+    --background-dark: #121212;
+    --background-header: #CCCCCC;
+    --background-header-dark: #1F1F1F;
+    --text-color: #333333;
+    --text-color-dark: #E0E0E0;
+    --color-primary: #1C3B5E;
+    --color-primary-dark: #4A90E2;
+    --color-secondary: #00BCD4;
+    --color-action: #FF8C00;
+    --color-action-dark: #FFB347;  
+    --color-action-hover: #CC7000;
+    --color-action-hover-dark: #D49B3E;
 }
+
 
 body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
+    color: var(--text-color);
+    background-color: var(--background-);
 }
 
 body.dark-theme {
-    background-color: var(--background-color-dark);
+    background-color: var(--background-dark);
     color: var(--text-color-dark);
     --background-color-button: var(--background-color-button-dark);
     --background-color-button-hover: var(--background-color-button-hover-dark);
 }
 
-.poema-container {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 2rem;
-    text-align: center;
-}
-
-.titulo-poema {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    color: var(--text-color);
-}
-
-.poema {
-    font-family: 'georgia', serif;
-    line-height: 1.6;
-}
-
-.estrofe {
-    white-space: pre-line;
-    margin-bottom: 1.5rem;
-    font-size: 1.1rem;
-}
-
-.autor {
-    font-style: italic;
-    margin-top: 2rem;
-    font-weight: bold;
-    color: #666;
-}
-
-body.dark-theme .autor {
-    color: #ccc;
-}
 
 div.video {
     position: relative;
     background-color: var(--transparent);
     height: 0px;
     margin-left: -20px;
-    margin-right: -20px;
+    margin-right: 0px;
     margin-bottom: 15px;
     padding-bottom: 59%;
 }
@@ -79,9 +51,12 @@ div.video iframe {
 }
 
 header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 1rem;
+    background-color: #cccccc;
+    color: black;
+    height: 5.8rem;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
     text-align: center;
 }
 
@@ -94,10 +69,70 @@ nav#menu ul {
     text-transform: uppercase;
     position: absolute;
     top: -10px;
-    left: 30px;
+    left: auto;
+    right: 30px;
 }
 
 nav#menu li {
     background-color: var(--background-color-button);
-    margin-right: 20px;
+}
+
+#logo-header {
+    position: absolute;
+    top: 5px;
+    left: 20px;
+    width: 50px;
+    height: auto;
+}
+
+/* Hero Section Styles */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('../media/images/Gemini_Generated_Image_4oqns64oqns64oqn.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+}
+
+.hero-content {
+    max-width: 600px;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--color-action);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: var(--color-action-hover);
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+    .hero-content p {
+        font-size: 1rem;
+    }
 }
