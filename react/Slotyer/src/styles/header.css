@@ -1,0 +1,53 @@
+/*white theme settings*/
+header {
+    background-color: rgb(229, 230, 230);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+header.hidden {
+    transform: translateY(-100%);
+}
+
+.logo {
+    width: 75px;
+    height: 75px;
+    background-image: url('../media/images/logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+
+
+
+
+/*dark theme settings*/
+body.dark-theme header {
+    background-color: rgb(52,52,52);
+}
+
+body.dark-theme .logo {
+    background-image: url('../media/images/logo_dark_theme.png');
+}
+
+body.dark-theme header .nav-link {
+    color: white !important;
+}
+
+body.dark-theme header #temaBtn {
+    color: white;
+    background-color: transparent;
+}
+
+body.dark-theme header .navbar-brand img {
+    filter: invert(1);
+}
+
+body.dark-theme .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}

@@ -1,0 +1,52 @@
+:root {
+  --background-: #FFFFFF;
+  --background-dark: #121212;
+  --background-header: #CCCCCC;
+  --background-header-dark: #1F1F1F;
+  --text-color: #333333;
+  --text-color-dark: #E0E0E0;
+  --color-primary: #1C3B5E;
+  --color-primary-dark: #4A90E2;
+  --color-secondary: #00BCD4;
+  --color-action: #FF8C00;
+  --color-action-dark: #FFB347;
+  --color-action-hover: #CC7000;
+  --color-action-hover-dark: #D49B3E;
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  padding-top: 80px;
+  font-family: Arial, sans-serif;
+  color: var(--text-color);
+  background-color: var(--background-);
+}
+
+body.dark-theme {
+  background-color: var(--background-dark);
+  color: var(--text-color-dark);
+  --background-color-button: var(--background-color-button-dark);
+  --background-color-button-hover: var(--background-color-button-hover-dark);
+}
+
+
+div.video {
+  position: relative;
+  background-color: var(--transparent);
+  height: 0px;
+  margin-left: -20px;
+  margin-right: 0px;
+  margin-bottom: 15px;
+  padding-bottom: 59%;
+}
+
+div.video iframe {
+  position: absolute;
+  background-color: var(--background-color);
+  top: 5%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+}
