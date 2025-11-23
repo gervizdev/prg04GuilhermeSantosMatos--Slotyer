@@ -3,11 +3,26 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-image: url('../media/images/hero_background.png');
+    background-image: url('/media/images/hero_background.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     color: white;
     text-align: center;
     padding: 2rem;
+}
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+    .hero {
+        height: auto;
+        min-height: 100vh;
+        padding: 1rem;
+    }
+    .hero-content h1 {
+        font-size: 1.5rem;
+    }
+    .hero-content p {
+        font-size: 1rem;
+    }
 }

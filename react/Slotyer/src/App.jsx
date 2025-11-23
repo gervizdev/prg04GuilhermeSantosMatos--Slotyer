@@ -5,10 +5,10 @@ import './App.css';
 
 function App() {
   return (
-    <>
+    <div style={{ paddingTop: '80px' }}> {/* Ajuste para header fixed */}
       <Header />
       <Hero />
-    </>
+    </div>
   );
 }
 

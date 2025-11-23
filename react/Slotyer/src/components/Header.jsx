@@ -1,7 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/header.css';
 
 const Header = () => {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      setIsDark(true);
+      document.body.classList.add('dark-theme');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newIsDark = !isDark;
+    setIsDark(newIsDark);
+    document.body.classList.toggle('dark-theme');
+    localStorage.setItem('theme', newIsDark ? 'dark' : 'light');
+  };
+
   return (
     <header className="header">
       <nav id="navbar" className="navbar navbar-expand-lg">
@@ -24,7 +41,7 @@ const Header = () => {
                 <a className="nav-link" href="#servicos">Serviços</a>
               </li>
               <li className="nav-item">
-                <button id="temaBtn">tema</button>
+                <button id="temaBtn" onClick={toggleTheme}>tema</button>
               </li>
             </ul>
           </div>

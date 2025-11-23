@@ -15,7 +15,7 @@ header.hidden {
 .logo {
     width: 75px;
     height: 75px;
-    background-image: url('../media/images/logo.png');
+    background-image: url('/media/images/logo.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -32,7 +32,7 @@ body.dark-theme header {
 }
 
 body.dark-theme .logo {
-    background-image: url('../media/images/logo_dark_theme.png');
+    background-image: url('/media/images/logo_dark_theme.png');
 }
 
 body.dark-theme header .nav-link {
