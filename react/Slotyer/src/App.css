@@ -1,42 +1,215 @@
-#root {
-  width: 100%;
+.app-shell {
+  background: #0a1525;
+  color: #e8f1ff;
+  min-height: 100vh;
+  font-family: 'Space Grotesk', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.content {
+  padding: 32px 24px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.section-card, .result-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.section-header h2, .section-header h3 {
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+  letter-spacing: 0.01em;
+}
+
+.section-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.grid {
+  display: grid;
+  gap: 12px;
+}
+
+.grid.two { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.grid.three { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.grid.four { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.95rem;
+}
+
+.field span {
+  color: rgba(232, 241, 255, 0.8);
+}
+
+.field input,
+.field select {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: #e8f1ff;
+}
+
+.field input:focus,
+.field select:focus {
+  outline: 2px solid #7ed8ff;
+  border-color: #7ed8ff;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+button,
+.actions .btn,
+.ghost {
+  background: #7ed8ff;
+  color: #081321;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+}
+
+button:hover,
+.actions .btn:hover,
+.ghost:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(126, 216, 255, 0.35);
+}
+
+.ghost {
+  background: transparent;
+  color: #e8f1ff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: none;
+}
+
+.ghost:hover {
+  border-color: #7ed8ff;
+  color: #7ed8ff;
+}
+
+.result-card {
+  margin-top: 12px;
+}
+
+.result-label {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.result-json {
+  background: rgba(0, 0, 0, 0.35);
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #c8f0ff;
+  overflow-x: auto;
   margin: 0;
-  padding: 0;
-  text-align: left;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.testimonial-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 160px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.quote {
+  margin: 0;
+  color: #e8f1ff;
+  line-height: 1.5;
+}
+
+.persona {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7ed8ff, #5e8bff);
+  color: #081321;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.persona .small {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.faq-item {
+  padding: 12px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-item h3 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+}
+
+.cta-card .actions {
+  margin-top: 8px;
+}
+
+.cta-card .ghost {
+  padding: 10px 14px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(126, 216, 255, 0.15);
+  border: 1px solid rgba(126, 216, 255, 0.4);
+  border-radius: 999px;
+  padding: 6px 12px;
+  color: #7ed8ff;
+  font-weight: 600;
+}
+
+.muted {
+  color: rgba(232, 241, 255, 0.55);
+}
+
+@media (max-width: 720px) {
+  .content {
+    padding: 24px 16px 64px;
   }
-  to {
-    transform: rotate(360deg);
+  .actions {
+    flex-direction: column;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }

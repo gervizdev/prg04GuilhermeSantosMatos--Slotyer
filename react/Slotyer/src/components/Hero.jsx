@@ -5,9 +5,9 @@ const Hero = () => {
   return (
     <section className="hero">
       <div className="hero-content">
-        <h1>Marque a diferença. Agende com Slotyer.</h1>
-        <p>Gerencie compromissos de forma rápida, simples e intuitiva. Liberte-se das planilhas e ganhe tempo para focar no que realmente importa: seu negócio.</p>
-        <a className="btn btn-primary" href="#" role="button">agende agora</a>
+        <h1>Cresça seu negócio com Slotyer</h1>
+        <p>Conecte-se com clientes, organize sua agenda e gerencie seus serviços em um único lugar. Simples, eficiente e pronto para escalar.</p>
+        <a className="btn btn-primary" href="#cadastro" role="button">Cadastre-se como profissional</a>
       </div>
     </section>
   );

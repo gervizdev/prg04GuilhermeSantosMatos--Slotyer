@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Logo from './Logo';
 import '../styles/header.css';
 
 const Header = () => {
@@ -24,7 +25,9 @@ const Header = () => {
       <nav id="navbar" className="navbar navbar-expand-lg">
         <div className="container-fluid">
           <a className="navbar-brand" href="/">
-            <div className="logo"></div>
+            <div className="logo">
+              <Logo />
+            </div>
           </a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
@@ -35,13 +38,10 @@ const Header = () => {
                 <a className="nav-link active" aria-current="page" href="/">Home</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#sobre">Sobre</a>
+                <a className="nav-link" href="#cadastro">Cadastro</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#servicos">Serviços</a>
-              </li>
-              <li className="nav-item">
-                <button id="temaBtn" onClick={toggleTheme}>tema</button>
+                <button id="temaBtn" onClick={toggleTheme}>🌙 Tema</button>
               </li>
             </ul>
           </div>
