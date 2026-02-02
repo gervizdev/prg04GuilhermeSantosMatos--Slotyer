@@ -1,8 +1,8 @@
 import React from 'react';
-import { api } from '../api';
-import '../styles/signup.css';
+import { api } from '../../api';
+import '../../styles/signup.css';
 
-const SignUp = () => {
+const SignUpModal = ({ onClose, onSignUpSuccess, onSwitchToClient }) => {
   const [formData, setFormData] = React.useState({
     nome: '',
     email: '',
@@ -96,6 +96,19 @@ const SignUp = () => {
         error: '',
         success: 'Cadastro enviado com sucesso! Em breve entraremos em contato.',
       });
+      
+      // Chamar callback de sucesso com dados do usuário
+      if (onSignUpSuccess) {
+        const userData = {
+          nome: payload.nome,
+          email: payload.email,
+          tipo: 'PROFISSIONAL',
+          profissao: payload.especialidade,
+          telefone: payload.telefone
+        };
+        onSignUpSuccess(userData);
+      }
+      
       setFormData({ nome: '', email: '', profissao: '', senha: '', confirmarSenha: '', telefone: '' });
     } catch (err) {
       const message = (err?.body && typeof err.body === 'object' && err.body.message)
@@ -107,15 +120,24 @@ const SignUp = () => {
     }
   };
 
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget && onClose) {
+      onClose();
+    }
+  };
+
   return (
-    <section id="cadastro" className="signup">
-      <div className="signup-container">
-        <div className="signup-content">
-          <h2>Comece Agora</h2>
-          <p>Cadastre-se e comece a receber agendamentos em minutos</p>
-          
-          <form className="signup-form" onSubmit={handleSubmit} aria-busy={status.loading}>
-            <div className="form-group">
+    <div className="signup-modal-overlay" onClick={handleOverlayClick}>
+      <div className="signup-modal">
+        <button className="signup-modal-close" onClick={onClose} aria-label="Fechar">✕</button>
+        
+        <div className="signup-modal-header">
+          <h2>👨‍💼 Cadastro Profissional</h2>
+          <p>Comece a receber agendamentos em minutos</p>
+        </div>
+        
+        <form className="signup-modal-form" onSubmit={handleSubmit} aria-busy={status.loading}>
+          <div className="form-group">
               <label htmlFor="nome">Nome Completo</label>
               <input
                 type="text"
@@ -217,8 +239,8 @@ const SignUp = () => {
               />
             </div>
 
-            <button type="submit" className="btn btn-primary btn-large" disabled={status.loading}>
-              {status.loading ? 'Enviando...' : 'Cadastrar Gratuitamente'}
+            <button type="submit" className="btn-signup-submit" disabled={status.loading}>
+              {status.loading ? 'Enviando...' : 'Cadastrar como Profissional'}
             </button>
 
             {status.error && (
@@ -227,15 +249,18 @@ const SignUp = () => {
             {status.success && (
               <p className="form-message success" aria-live="polite">{status.success}</p>
             )}
-
-            <p className="form-terms">
-              Ao cadastrar, você concorda com nossos termos de serviço
-            </p>
           </form>
-        </div>
+
+          <div className="signup-modal-divider">
+            <span>ou</span>
+          </div>
+
+          <button className="btn-professional-switch" onClick={onSwitchToClient}>
+            👤 Quero me cadastrar como Cliente
+          </button>
       </div>
-    </section>
+    </div>
   );
 };
 
-export default SignUp;
+export default SignUpModal;

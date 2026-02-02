@@ -1,0 +1,755 @@
+/* Página Pública do Profissional - Foco em Agendamento */
+
+.perfil-publico-page {
+  min-height: 100vh;
+  background: #0a0a0f;
+  color: #fff;
+}
+
+/* Loading e Error */
+.perfil-publico-loading,
+.perfil-publico-error {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.perfil-publico-error .error-icon {
+  font-size: 4rem;
+}
+
+.perfil-publico-error h2 {
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.perfil-publico-error p {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-ver-todos {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-ver-todos:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+}
+
+/* Header Compacto */
+.header-publico {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1001;
+  backdrop-filter: blur(10px);
+}
+
+.header-publico-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.header-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.header-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.header-info h1 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header-profissao {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+.header-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+.header-rating .stars-row {
+  display: flex;
+  gap: 1px;
+}
+
+.header-rating .star {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.header-rating .star.filled {
+  color: #fbbf24;
+}
+
+.header-rating span {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.header-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-icon.whatsapp {
+  background: #25d366;
+}
+
+.btn-icon.share {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-icon:hover {
+  transform: scale(1.05);
+}
+
+.slotyer-branding-mini {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Content focado em agendamento */
+.perfil-publico-content.agendamento-focus {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+  padding-top: 120px; /* Espaço para header sticky não sobrepor */
+}
+
+/* Seção Principal de Agendamento */
+.section-agendamento-principal {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 20px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.agendamento-titulo {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.agendamento-titulo h2 {
+  font-size: 1.5rem;
+  margin: 0 0 0.25rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.agendamento-titulo p {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Steps de Agendamento */
+.agendamento-step {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.agendamento-step:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.agendamento-step.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.step-number {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.step-header h3 {
+  font-size: 1rem;
+  margin: 0;
+  color: #fff;
+}
+
+.step-placeholder {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+}
+
+/* Lista de Serviços para Agendamento */
+.servico-search {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.servico-search .search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+.servico-search input {
+  width: 100%;
+  padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.servico-search input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.servico-search input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+.servicos-lista-agendamento {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.servicos-lista-agendamento::-webkit-scrollbar {
+  width: 6px;
+}
+
+.servicos-lista-agendamento::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.servicos-lista-agendamento::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.4);
+  border-radius: 10px;
+}
+
+.servicos-lista-agendamento::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 126, 234, 0.6);
+}
+
+.servico-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #fff;
+  width: 100%;
+  text-align: left;
+}
+
+.servico-option:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+.servico-option.selected {
+  background: rgba(102, 126, 234, 0.15);
+  border-color: #667eea;
+}
+
+.servico-option-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.servico-option .servico-nome {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.servico-option .servico-duracao {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.servico-option .servico-preco {
+  font-weight: 700;
+  font-size: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Calendário Wrapper */
+.calendario-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+/* Grid de Horários */
+.horarios-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.horario-btn {
+  padding: 0.75rem 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.horario-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(102, 126, 234, 0.4);
+}
+
+.horario-btn.selected {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: transparent;
+}
+
+/* Resumo Final */
+.agendamento-resumo-final {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.resumo-card {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  border-radius: 16px;
+  padding: 1.25rem;
+}
+
+.resumo-card h3 {
+  font-size: 1rem;
+  margin: 0 0 1rem;
+  color: #fff;
+}
+
+.resumo-detalhes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.resumo-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.resumo-label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.resumo-value {
+  color: #fff;
+  font-weight: 500;
+}
+
+.resumo-item.total {
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 0.25rem;
+}
+
+.resumo-item.total .resumo-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-confirmar-grande {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-confirmar-grande:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+/* Seção Mais Informações */
+.section-mais-info {
+  margin-top: 1rem;
+}
+
+.btn-mais-info {
+  width: 100%;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.btn-mais-info:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.mais-info-content {
+  margin-top: 1rem;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.info-section {
+  margin-bottom: 1.25rem;
+}
+
+.info-section:last-child {
+  margin-bottom: 0;
+}
+
+.info-section h3 {
+  font-size: 0.95rem;
+  margin: 0 0 0.75rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.info-section p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Info Cards Compact */
+.info-cards-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.info-card-mini {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+}
+
+.info-card-mini .info-icon {
+  font-size: 1.25rem;
+}
+
+.info-card-mini strong {
+  display: block;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-card-mini p {
+  font-size: 0.9rem;
+  color: #fff;
+  margin: 0;
+}
+
+/* Avaliações Compact */
+.avaliacoes-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.avaliacao-mini {
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+}
+
+.avaliacao-mini-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.avaliacao-mini-header span {
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.avaliacao-mini-header .stars-row.mini {
+  display: flex;
+  gap: 1px;
+}
+
+.avaliacao-mini-header .star {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.avaliacao-mini-header .star.filled {
+  color: #fbbf24;
+}
+
+.avaliacao-mini p {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+  margin: 0;
+}
+
+/* Links */
+.info-links {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.link-btn {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.link-btn.whatsapp {
+  background: #25d366;
+  color: #fff;
+}
+
+.link-btn.instagram {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: #fff;
+}
+
+.link-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Footer Compacto */
+.footer-publico-compact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-brand-mini {
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer-divider {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-ver-outros {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.btn-ver-outros:hover {
+  color: #fff;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Stars */
+.stars-row {
+  display: flex;
+  gap: 2px;
+}
+
+.star {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.star.filled {
+  color: #fbbf24;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .header-publico-content {
+    gap: 0.75rem;
+  }
+
+  .header-avatar {
+    width: 45px;
+    height: 45px;
+  }
+
+  .header-info h1 {
+    font-size: 0.9rem;
+  }
+
+  .btn-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  .perfil-publico-content.agendamento-focus {
+    padding: 0.75rem;
+  }
+
+  .section-agendamento-principal {
+    padding: 1.25rem;
+    border-radius: 16px;
+  }
+
+  .agendamento-titulo h2 {
+    font-size: 1.25rem;
+  }
+
+  .horarios-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .info-links {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 768px) {
+  .header-publico-content {
+    max-width: 600px;
+  }
+
+  .horarios-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}

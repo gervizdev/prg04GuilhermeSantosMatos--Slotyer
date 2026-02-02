@@ -1,0 +1,263 @@
+/* ===== CALENDÁRIO SLOTYER (react-day-picker v9) ===== */
+
+.slotyer-calendar {
+  --rdp-accent-color: #667eea;
+  --rdp-accent-background-color: rgba(102, 126, 234, 0.15);
+  --rdp-day-height: 40px;
+  --rdp-day-width: 40px;
+  --rdp-selected-font: 600;
+  
+  padding: 16px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: inherit;
+  display: flex;
+  justify-content: center;
+}
+
+/* Container do mês */
+.slotyer-calendar .rdp-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Cabeçalho mês/ano */
+.slotyer-calendar .rdp-month_caption {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 0 16px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a202c;
+  text-transform: capitalize;
+}
+
+/* Navegação */
+.slotyer-calendar .rdp-nav {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.slotyer-calendar .rdp-button_previous,
+.slotyer-calendar .rdp-button_next {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #f7fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #4a5568;
+}
+
+.slotyer-calendar .rdp-button_previous:hover,
+.slotyer-calendar .rdp-button_next:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: transparent;
+  color: white;
+}
+
+.slotyer-calendar .rdp-chevron {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* Container do mês */
+.slotyer-calendar .rdp-month {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slotyer-calendar .rdp-months {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+/* Dias da semana */
+.slotyer-calendar .rdp-weekdays {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.slotyer-calendar .rdp-weekday {
+  width: var(--rdp-day-width);
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #667eea;
+  text-transform: capitalize;
+}
+
+/* Semanas/Linhas */
+.slotyer-calendar .rdp-weeks {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.slotyer-calendar .rdp-week {
+  display: flex;
+  justify-content: center;
+}
+
+/* Células dos dias */
+.slotyer-calendar .rdp-day {
+  width: var(--rdp-day-width);
+  height: var(--rdp-day-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slotyer-calendar .rdp-day_button {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.slotyer-calendar .rdp-day_button:hover:not(:disabled) {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+}
+
+/* Dia selecionado */
+.slotyer-calendar .rdp-selected .rdp-day_button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+  font-weight: 600;
+}
+
+.slotyer-calendar .rdp-selected .rdp-day_button:hover {
+  background: linear-gradient(135deg, #5a6fd6 0%, #6a4190 100%) !important;
+}
+
+/* Dia atual */
+.slotyer-calendar .rdp-today .rdp-day_button {
+  background: rgba(102, 126, 234, 0.15);
+  color: #667eea;
+  font-weight: 700;
+}
+
+.slotyer-calendar .rdp-today.rdp-selected .rdp-day_button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+}
+
+/* Dias fora do mês */
+.slotyer-calendar .rdp-outside .rdp-day_button {
+  color: #cbd5e0;
+}
+
+.slotyer-calendar .rdp-outside .rdp-day_button:hover {
+  background: rgba(102, 126, 234, 0.05);
+}
+
+/* Dias desabilitados */
+.slotyer-calendar .rdp-disabled .rdp-day_button {
+  color: #e2e8f0;
+  cursor: not-allowed;
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.slotyer-calendar .rdp-disabled .rdp-day_button:hover {
+  background: transparent;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 400px) {
+  .slotyer-calendar {
+    --rdp-day-width: 36px;
+    --rdp-day-height: 36px;
+    padding: 12px;
+  }
+
+  .slotyer-calendar .rdp-day_button {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
+  }
+
+  .slotyer-calendar .rdp-month_caption {
+    font-size: 1rem;
+  }
+}
+
+/* ===== DARK THEME ===== */
+body.dark-theme .slotyer-calendar {
+  background: #2d3748;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .slotyer-calendar .rdp-month_caption {
+  color: #f7fafc;
+}
+
+body.dark-theme .slotyer-calendar .rdp-button_previous,
+body.dark-theme .slotyer-calendar .rdp-button_next {
+  background: #4a5568;
+  border-color: #4a5568;
+  color: #e2e8f0;
+}
+
+body.dark-theme .slotyer-calendar .rdp-button_previous:hover,
+body.dark-theme .slotyer-calendar .rdp-button_next:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: transparent;
+  color: white;
+}
+
+body.dark-theme .slotyer-calendar .rdp-weekday {
+  color: #a78bfa;
+}
+
+body.dark-theme .slotyer-calendar .rdp-day_button {
+  color: #e2e8f0;
+}
+
+body.dark-theme .slotyer-calendar .rdp-day_button:hover:not(:disabled) {
+  background: rgba(102, 126, 234, 0.2);
+  color: #a78bfa;
+}
+
+body.dark-theme .slotyer-calendar .rdp-today .rdp-day_button {
+  background: rgba(102, 126, 234, 0.25);
+  color: #a78bfa;
+}
+
+body.dark-theme .slotyer-calendar .rdp-outside .rdp-day_button {
+  color: #4a5568;
+}
+
+body.dark-theme .slotyer-calendar .rdp-disabled .rdp-day_button {
+  color: #4a5568;
+}

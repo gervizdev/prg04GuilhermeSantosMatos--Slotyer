@@ -2,13 +2,13 @@ import React from 'react';
 import { api } from '../api';
 import '../styles/signup.css';
 
-const SignUp = () => {
+const SignUpCliente = ({ onClose, onSignUpSuccess, onGoToProfessional, onSwitchToLogin }) => {
   const [formData, setFormData] = React.useState({
     nome: '',
     email: '',
-    profissao: '',
     senha: '',
     confirmarSenha: '',
+    tipo: 'CLIENTE',
     telefone: '',
   });
 
@@ -35,7 +35,6 @@ const SignUp = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) return 'Informe um email válido.';
     if (!formData.senha || formData.senha.length < 6) return 'A senha deve ter pelo menos 6 caracteres.';
-    if (!formData.profissao.trim()) return 'Informe a profissão/serviço.';
     const phoneDigits = formData.telefone.replace(/\D/g, '');
     if (phoneDigits.length < 10) return 'Informe um telefone com DDD.';
     return null;
@@ -84,36 +83,168 @@ const SignUp = () => {
         nome: formData.nome.trim(),
         email: formData.email.trim(),
         senha: formData.senha,
-        tipo: 'PROFISSIONAL',
+        tipo: formData.tipo,
         telefone: formData.telefone.replace(/\D/g, ''),
-        especialidade: formData.profissao.trim(),
       };
 
       await api.register(payload);
 
-      setStatus({
-        loading: false,
-        error: '',
-        success: 'Cadastro enviado com sucesso! Em breve entraremos em contato.',
-      });
-      setFormData({ nome: '', email: '', profissao: '', senha: '', confirmarSenha: '', telefone: '' });
+      // Se tiver callback de sucesso, chama com os dados do usuário
+      if (onSignUpSuccess) {
+        const userData = {
+          id: Date.now(),
+          nome: formData.nome.trim(),
+          email: formData.email.trim(),
+          avatar: `https://via.placeholder.com/100x100/667eea/ffffff?text=${formData.nome.charAt(0).toUpperCase()}`,
+          tipo: 'CLIENTE'
+        };
+        onSignUpSuccess(userData);
+      } else {
+        setStatus({ loading: false, error: '', success: 'Cadastro enviado com sucesso! Em breve entraremos em contato.' });
+        setFormData({ nome: '', email: '', senha: '', confirmarSenha: '', tipo: 'CLIENTE', telefone: '' });
+      }
     } catch (err) {
       const message = (err?.body && typeof err.body === 'object' && err.body.message)
         ? err.body.message
         : (typeof err?.body === 'string' ? err.body : err?.message);
 
-      const finalMessage = message || 'Não foi possível enviar o cadastro. Tente novamente.';
-      setStatus({ loading: false, error: message, success: '' });
+      setStatus({ loading: false, error: message || 'Não foi possível enviar o cadastro. Tente novamente.', success: '' });
     }
   };
 
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget && onClose) {
+      onClose();
+    }
+  };
+
+  // Se tiver onClose, renderiza como modal
+  if (onClose) {
+    return (
+      <div className="signup-modal-overlay" onClick={handleOverlayClick}>
+        <div className="signup-modal">
+          <button className="signup-modal-close" onClick={onClose} aria-label="Fechar">
+            ✕
+          </button>
+          
+          <div className="signup-modal-header">
+            <h2>Criar conta</h2>
+            <p>Cadastre-se para encontrar e agendar com profissionais</p>
+          </div>
+
+          <form className="signup-modal-form" onSubmit={handleSubmit} aria-busy={status.loading}>
+            {status.error && (
+              <div className="signup-modal-error">{status.error}</div>
+            )}
+
+            <div className="form-group">
+              <label htmlFor="modal-nome">Nome Completo</label>
+              <input
+                type="text"
+                id="modal-nome"
+                name="nome"
+                value={formData.nome}
+                onChange={handleChange}
+                placeholder="Seu nome"
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="modal-email">Email</label>
+              <input
+                type="email"
+                id="modal-email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="seu@email.com"
+                required
+              />
+            </div>
+
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="modal-senha">Senha</label>
+                <div className="password-input-wrapper">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    id="modal-senha"
+                    name="senha"
+                    value={formData.senha}
+                    onChange={handleChange}
+                    placeholder="••••••••"
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="password-toggle-btn"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? "🙈" : "👁️"}
+                  </button>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="modal-confirmar">Confirmar</label>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="modal-confirmar"
+                  name="confirmarSenha"
+                  value={formData.confirmarSenha}
+                  onChange={handleChange}
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
+            </div>
+            {passwordError && (
+              <p className="field-error">{passwordError}</p>
+            )}
+
+            <div className="form-group">
+              <label htmlFor="modal-telefone">Telefone/WhatsApp</label>
+              <input
+                type="tel"
+                id="modal-telefone"
+                name="telefone"
+                value={formData.telefone}
+                onChange={handleChange}
+                placeholder="(11) 99999-9999"
+                required
+              />
+            </div>
+
+            <button type="submit" className="btn-signup-submit" disabled={status.loading}>
+              {status.loading ? 'Cadastrando...' : 'Criar conta'}
+            </button>
+          </form>
+
+          <div className="signup-modal-divider">
+            <span>ou</span>
+          </div>
+
+          <button className="btn-professional" onClick={onGoToProfessional}>
+            👨‍💼 Quero me cadastrar como Profissional
+          </button>
+
+          <div className="signup-modal-footer">
+            <p>Já tem uma conta? <button type="button" onClick={onSwitchToLogin}>Entrar</button></p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Renderização normal (seção na página)
   return (
-    <section id="cadastro" className="signup">
+    <section id="cadastro-cliente" className="signup">
       <div className="signup-container">
         <div className="signup-content">
-          <h2>Comece Agora</h2>
-          <p>Cadastre-se e comece a receber agendamentos em minutos</p>
-          
+          <h2>Cadastro de Cliente</h2>
+          <p>Cadastre-se como cliente para agendar serviços.</p>
+
           <form className="signup-form" onSubmit={handleSubmit} aria-busy={status.loading}>
             <div className="form-group">
               <label htmlFor="nome">Nome Completo</label>
@@ -142,20 +273,6 @@ const SignUp = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="profissao">Profissão/Serviço</label>
-              <input
-                type="text"
-                id="profissao"
-                name="profissao"
-                value={formData.profissao}
-                onChange={handleChange}
-                placeholder="ex: Cabeleireiro, Instrutor de Yoga, Consultor"
-              />
-            </div>
-
-
-
-  <div className="form-group">
               <label htmlFor="senha">Senha</label>
               <div className="password-input-container">
                 <input
@@ -218,7 +335,7 @@ const SignUp = () => {
             </div>
 
             <button type="submit" className="btn btn-primary btn-large" disabled={status.loading}>
-              {status.loading ? 'Enviando...' : 'Cadastrar Gratuitamente'}
+              {status.loading ? 'Enviando...' : 'Cadastrar como Cliente'}
             </button>
 
             {status.error && (
@@ -238,4 +355,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpCliente;
