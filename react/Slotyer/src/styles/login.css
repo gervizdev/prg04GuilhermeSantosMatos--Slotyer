@@ -300,8 +300,7 @@ body.dark-theme .login-error {
     gap: 12px;
     align-items: flex-start;
   }
-
-  .login-divider {
+}  .login-divider {
     display: flex;
     align-items: center;
     gap: 12px;
