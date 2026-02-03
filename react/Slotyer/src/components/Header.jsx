@@ -4,24 +4,16 @@ import UserAvatar from './UserAvatar';
 import '../styles/header.css';
 import LoginModal from './modals/LoginModal';
 import SignUpClienteModal from './modals/SignUpClienteModal';
+import { useAuth } from '../contexts/AuthContext';
 
-const Header = ({ user: propUser, isLoggedIn: propIsLoggedIn, onLogin, onLogout, onOpenSignUpProfissional }) => {
+const Header = ({ onOpenSignUpProfissional }) => {
+  const { user, isLoggedIn, handleLogin, handleLogout } = useAuth();
   const [isDark, setIsDark] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isDiscoverOpen, setIsDiscoverOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
-
-  // Usar props ou valores padrão
-  const user = propUser || {
-    id: 1,
-    nome: 'Usuário',
-    email: 'usuario@email.com',
-    avatar: 'https://ui-avatars.com/api/?name=U&background=667eea&color=fff&size=100',
-    tipo: 'CLIENTE'
-  };
-  const isLoggedIn = propIsLoggedIn ?? false;
 
   // Itens do submenu Descobrir - facilmente escalável
   const discoverItems = [
@@ -85,9 +77,7 @@ const Header = ({ user: propUser, isLoggedIn: propIsLoggedIn, onLogin, onLogout,
   };
 
   const handleLogout = () => {
-    if (onLogout) {
-      onLogout();
-    }
+    handleLogout();
   };
 
   const handleLoginClick = (e) => {
@@ -101,9 +91,7 @@ const Header = ({ user: propUser, isLoggedIn: propIsLoggedIn, onLogin, onLogout,
   };
 
   const handleLoginSuccess = (userData) => {
-    if (onLogin) {
-      onLogin(userData);
-    }
+    handleLogin(userData);
     setShowLogin(false);
   };
 
@@ -118,9 +106,7 @@ const Header = ({ user: propUser, isLoggedIn: propIsLoggedIn, onLogin, onLogout,
   };
 
   const handleSignUpSuccess = (userData) => {
-    if (onLogin) {
-      onLogin(userData);
-    }
+    handleLogin(userData);
     setShowSignUp(false);
   };
 

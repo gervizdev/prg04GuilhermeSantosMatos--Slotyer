@@ -14,16 +14,16 @@ import PerfilPublicoPage from './components/PerfilPublicoPage';
 import EditarPerfilProfissional from './components/EditarPerfilProfissional';
 import OAuth2Callback from './components/OAuth2Callback';
 import { api } from './api';
+import { useAuth } from './contexts/AuthContext';
 import './App.css';
 
 function App() {
+  const { user, isLoggedIn, handleLogin, handleLogout, handleUserUpdate } = useAuth();
   const [depoimentos, setDepoimentos] = useState([]);
   const [faqs, setFaqs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [currentPage, setCurrentPage] = useState('home');
-  const [user, setUser] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [selectedProfissionalId, setSelectedProfissionalId] = useState(null);
   const [isPublicProfile, setIsPublicProfile] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -110,20 +110,10 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, [isLoggedIn]);
 
-  const handleLogin = (userData) => {
-    setUser(userData);
-    setIsLoggedIn(true);
-  };
-
   const handleLogout = () => {
-    setUser(null);
-    setIsLoggedIn(false);
+    handleLogout(); 
     setCurrentPage('home');
     window.location.hash = '';
-  };
-
-  const handleUserUpdate = (updatedUser) => {
-    setUser(updatedUser);
   };
 
   const handleBackToHome = () => {
@@ -199,10 +189,6 @@ function App() {
   return (
     <div className="app-shell">
       <Header 
-        user={user}
-        isLoggedIn={isLoggedIn}
-        onLogin={handleLogin}
-        onLogout={handleLogout}
         onOpenSignUpProfissional={() => setShowSignUpModal(true)}
       />
       
