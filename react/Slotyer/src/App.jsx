@@ -53,7 +53,7 @@ function App() {
       const hash = window.location.hash;
 
       // Verificar se é o callback OAuth2
-      if (hash.includes('auth/callback')) {
+      if (hash && hash.includes('auth/callback')) {
         setCurrentPage('oauth2-callback');
         return;
       }

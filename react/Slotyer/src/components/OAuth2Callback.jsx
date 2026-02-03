@@ -89,6 +89,7 @@ export default function OAuth2Callback() {
       alignItems: 'center',
       minHeight: '100vh',
       backgroundColor: '#f5f5f5',
+      fontFamily: 'system-ui, -apple-system, sans-serif',
     }}>
       <div style={{
         backgroundColor: 'white',
@@ -97,6 +98,7 @@ export default function OAuth2Callback() {
         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
         textAlign: 'center',
         maxWidth: '400px',
+        width: '90%',
       }}>
         {status.loading && (
           <>
@@ -107,8 +109,8 @@ export default function OAuth2Callback() {
             }}>
               ⏳
             </div>
-            <h2>Processando login...</h2>
-            <p style={{ color: '#666' }}>Por favor, aguarde.</p>
+            <h2 style={{ margin: '0 0 10px 0', color: '#333' }}>Processando login...</h2>
+            <p style={{ color: '#666', margin: 0 }}>Por favor, aguarde.</p>
             <style>{`
               @keyframes spin {
                 from { transform: rotate(0deg); }
@@ -121,8 +123,8 @@ export default function OAuth2Callback() {
         {status.error && (
           <>
             <div style={{ fontSize: '48px', marginBottom: '20px' }}>❌</div>
-            <h2>Erro ao fazer login</h2>
-            <p style={{ color: '#d32f2f', marginBottom: '20px' }}>{status.error}</p>
+            <h2 style={{ margin: '0 0 10px 0', color: '#333' }}>Erro ao fazer login</h2>
+            <p style={{ color: '#d32f2f', marginBottom: '20px', margin: '10px 0' }}>{status.error}</p>
             <button
               onClick={() => window.location.href = '/'}
               style={{
@@ -132,6 +134,7 @@ export default function OAuth2Callback() {
                 padding: '10px 20px',
                 borderRadius: '4px',
                 cursor: 'pointer',
+                fontSize: '1rem',
               }}
             >
               Voltar para Home
@@ -142,9 +145,9 @@ export default function OAuth2Callback() {
         {status.success && (
           <>
             <div style={{ fontSize: '48px', marginBottom: '20px' }}>✅</div>
-            <h2>Login realizado!</h2>
-            <p style={{ color: '#388e3c', marginBottom: '20px' }}>{status.success}</p>
-            <p style={{ color: '#666' }}>Redirecionando...</p>
+            <h2 style={{ margin: '0 0 10px 0', color: '#333' }}>Login realizado!</h2>
+            <p style={{ color: '#388e3c', marginBottom: '10px', margin: '10px 0' }}>{status.success}</p>
+            <p style={{ color: '#666', margin: '10px 0' }}>Redirecionando...</p>
           </>
         )}
       </div>
