@@ -63,7 +63,7 @@ const LoginModal = ({ onClose, onLoginSuccess, onSwitchToSignUp, reason }) => {
       }
       
     } catch (err) {
-      // Sempre priorizar mensagem do backend se existir
+      // Sempre priorizar mensagem do backend se existir, inclusive em erro 500
       let message =
         (err?.body?.message && typeof err.body.message === 'string')
           ? err.body.message
@@ -73,20 +73,12 @@ const LoginModal = ({ onClose, onLoginSuccess, onSwitchToSignUp, reason }) => {
         // Erro de conexão / backend indisponível
         if (err.message === 'Failed to fetch' || err.message?.includes('ERR_NAME_NOT_RESOLVED') || !err.status) {
           message = '❌ Servidor indisponível. Verifique se o backend está rodando.';
-        }
-        // Erro 401 ou 404 - credenciais inválidas
-        else if (err.status === 401 || err.status === 404) {
+        } else if (err.status === 401 || err.status === 404) {
           message = '❌ Email ou senha inválidos';
-        }
-        // Outro erro com status HTTP
-        else if (err.status) {
-          message = `Erro ${err.status}: Tente novamente`;
-        }
-        // Erro customizado
-        else if (err.message) {
+        } else if (err.message) {
           message = `❌ ${err.message}`;
         } else {
-          message = 'Erro ao fazer login';
+          message = `Erro ${err.status || ''}: Tente novamente`;
         }
       }
 
