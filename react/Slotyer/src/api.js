@@ -34,7 +34,16 @@ async function request(method, path, { body, baseUrl = defaultBase } = {}) {
   }
 
   if (!res.ok) {
-    const message = (data && typeof data === 'object' && data.message) ? data.message : (typeof data === 'string' ? data : 'Request failed');
+    let message = null;
+    if (data && typeof data === 'object') {
+      message = data.message || data.error || data.title || data.details || null;
+    }
+    if (!message && typeof data === 'string') {
+      message = data;
+    }
+    if (!message) {
+      message = 'Request failed';
+    }
     const error = new Error(message);
     error.status = res.status;
     error.body = data;
