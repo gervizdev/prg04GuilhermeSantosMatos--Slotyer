@@ -69,6 +69,8 @@ export default function OAuth2Callback() {
           message = '❌ Servidor indisponível. Tente novamente.';
         } else if (err.status === 401 || err.status === 404) {
           message = '❌ Token inválido ou expirado. Tente fazer login novamente.';
+        } else if (err.status === 403) {
+          message = 'Seu email do Google não está verificado. Por favor, verifique seu email para acessar o sistema.';
         } else if (err.status) {
           message = err?.body?.message || `❌ Erro ${err.status}: Tente novamente`;
         } else if (err.message) {
