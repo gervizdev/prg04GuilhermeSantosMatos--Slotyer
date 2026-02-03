@@ -1,0 +1,5 @@
+{
+  "buildCommand": "cd react/Slotyer && npm install && npm run build",
+  "outputDirectory": "react/Slotyer/dist",
+  "installCommand": "npm install"
+}
