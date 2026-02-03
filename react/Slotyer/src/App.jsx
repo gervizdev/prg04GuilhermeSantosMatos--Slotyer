@@ -110,12 +110,6 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, [isLoggedIn]);
 
-  const handleLogout = () => {
-    handleLogout(); 
-    setCurrentPage('home');
-    window.location.hash = '';
-  };
-
   const handleBackToHome = () => {
     isInternalNavigation.current = true;
     setCurrentPage('home');

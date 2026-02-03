@@ -76,9 +76,6 @@ const Header = ({ onOpenSignUpProfissional }) => {
     window.location.hash = 'perfil';
   };
 
-  const handleLogout = () => {
-    handleLogout();
-  };
 
   const handleLoginClick = (e) => {
     e.preventDefault();
