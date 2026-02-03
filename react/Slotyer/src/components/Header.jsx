@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Logo from './Logo';
 import UserAvatar from './UserAvatar';
 import '../styles/header.css';
-import Login from './Login';
-import SignUpCliente from './SignUpCliente';
+import LoginModal from './modals/LoginModal';
+import SignUpClienteModal from './modals/SignUpClienteModal';
 
 const Header = ({ user: propUser, isLoggedIn: propIsLoggedIn, onLogin, onLogout, onOpenSignUpProfissional }) => {
   const [isDark, setIsDark] = useState(false);
@@ -18,7 +18,7 @@ const Header = ({ user: propUser, isLoggedIn: propIsLoggedIn, onLogin, onLogout,
     id: 1,
     nome: 'Usuário',
     email: 'usuario@email.com',
-    avatar: 'https://via.placeholder.com/100x100/667eea/ffffff?text=U',
+    avatar: 'https://ui-avatars.com/api/?name=U&background=667eea&color=fff&size=100',
     tipo: 'CLIENTE'
   };
   const isLoggedIn = propIsLoggedIn ?? false;
@@ -226,7 +226,7 @@ const Header = ({ user: propUser, isLoggedIn: propIsLoggedIn, onLogin, onLogout,
 
     {/* Modal de Login - fora do header */}
     {showLogin && (
-      <Login 
+      <LoginModal 
         onClose={handleLoginClose} 
         onLoginSuccess={handleLoginSuccess}
         onSwitchToSignUp={() => {
@@ -238,7 +238,7 @@ const Header = ({ user: propUser, isLoggedIn: propIsLoggedIn, onLogin, onLogout,
 
     {/* Modal de Cadastro Cliente - fora do header */}
     {showSignUp && (
-      <SignUpCliente
+      <SignUpClienteModal
         onClose={handleSignUpClose}
         onSignUpSuccess={handleSignUpSuccess}
         onGoToProfessional={handleGoToProfessional}

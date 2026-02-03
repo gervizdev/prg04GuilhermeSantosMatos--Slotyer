@@ -58,13 +58,60 @@ const PerfilProfissionalPage = ({ profissionalId, onBack }) => {
     return format(date, "EEEE, d 'de' MMMM", { locale: ptBR });
   };
 
-  const handleAgendar = () => {
+  const [agendamentoLoading, setAgendamentoLoading] = useState(false);
+
+  const handleAgendar = async () => {
     if (!selectedService || !selectedDate || !selectedTime) {
       alert('Por favor, selecione um serviço, data e horário.');
       return;
     }
-    const dataFormatada = format(selectedDate, "EEEE, d 'de' MMMM 'de' yyyy", { locale: ptBR });
-    alert(`Agendamento realizado!\n\nServiço: ${selectedService.nome}\nData: ${dataFormatada}\nHorário: ${selectedTime}\n\nEm breve você receberá a confirmação.`);
+
+    // Verificar se o usuário está logado
+    const token = localStorage.getItem('slotyer_token');
+    if (!token) {
+      alert('Você precisa fazer login para agendar. Por favor, faça login e tente novamente.');
+      return;
+    }
+
+    setAgendamentoLoading(true);
+    
+    try {
+      // Primeiro, buscar o horário disponível para obter o horarioId
+      const dataFormatada = format(selectedDate, 'yyyy-MM-dd');
+      const horariosDisponiveis = await api.listHorariosPorData(profissionalId, dataFormatada);
+      
+      // Encontrar o horário correspondente
+      const horarioEncontrado = horariosDisponiveis.find(h => 
+        (h.horaInicio === selectedTime || h.horario === selectedTime) && h.disponivel !== false
+      );
+      
+      if (!horarioEncontrado) {
+        alert('Horário não disponível. Por favor, selecione outro horário.');
+        setAgendamentoLoading(false);
+        return;
+      }
+
+      const agendamentoData = {
+        horarioId: horarioEncontrado.id,
+        servicoId: selectedService.id,
+        observacoes: ''
+      };
+
+      await api.createAgendamento(agendamentoData);
+      
+      const dataExibicao = format(selectedDate, "EEEE, d 'de' MMMM 'de' yyyy", { locale: ptBR });
+      alert(`Agendamento realizado com sucesso!\n\nServiço: ${selectedService.nome}\nData: ${dataExibicao}\nHorário: ${selectedTime}\n\nEm breve você receberá a confirmação.`);
+      
+      // Limpar seleções após sucesso
+      setSelectedService(null);
+      setSelectedDate(null);
+      setSelectedTime(null);
+    } catch (error) {
+      console.error('Erro ao criar agendamento:', error);
+      alert(`Erro ao realizar agendamento: ${error.message || 'Tente novamente mais tarde'}`);
+    } finally {
+      setAgendamentoLoading(false);
+    }
   };
 
   const handleCompartilhar = async () => {
@@ -340,8 +387,12 @@ const PerfilProfissionalPage = ({ profissionalId, onBack }) => {
                     <p><strong>Duração:</strong> {selectedService.duracao}</p>
                     <p className="resumo-preco"><strong>Valor:</strong> {selectedService.preco}</p>
                   </div>
-                  <button className="btn-confirmar-agendamento" onClick={handleAgendar}>
-                    ✅ Confirmar Agendamento
+                  <button 
+                    className="btn-confirmar-agendamento" 
+                    onClick={handleAgendar}
+                    disabled={agendamentoLoading}
+                  >
+                    {agendamentoLoading ? '⏳ Agendando...' : '✅ Confirmar Agendamento'}
                   </button>
                 </div>
               )}

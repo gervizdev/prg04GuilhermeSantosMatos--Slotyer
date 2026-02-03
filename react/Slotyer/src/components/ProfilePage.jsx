@@ -126,13 +126,36 @@ const ProfilePage = ({ user: initialUser, onUserUpdate, onBack }) => {
     setMessage({ type: '', text: '' });
 
     try {
-      // Simulação de salvamento - substituir por chamada real à API
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Verificar se é profissional para usar a API correta
+      const userTipo = user.tipo || user.type || user.role || '';
+      const isProfissional = userTipo.toUpperCase() === 'PROFISSIONAL' || userTipo.toUpperCase() === 'PROFESSIONAL';
 
-      const updatedUser = {
-        ...user,
-        ...formData,
+      const payload = {
+        nome: formData.nome,
+        name: formData.nome,
+        telefone: formData.telefone,
+        phone: formData.telefone,
+        bio: formData.bio,
+        description: formData.bio,
+        endereco: formData.endereco,
+        address: formData.endereco,
+        cidade: formData.cidade,
+        city: formData.cidade,
+        estado: formData.estado,
+        state: formData.estado,
       };
+
+      let updatedUser;
+      if (isProfissional) {
+        // Atualizar perfil profissional via API
+        payload.profissao = formData.profissao;
+        payload.specialty = formData.profissao;
+        await api.updateMyProfessionalProfile(payload);
+      } else {
+        // Atualizar perfil do cliente via API
+        await api.updateMe(payload);
+      }
+      updatedUser = { ...user, ...formData };
 
       setUser(updatedUser);
       setIsEditing(false);
@@ -142,7 +165,8 @@ const ProfilePage = ({ user: initialUser, onUserUpdate, onBack }) => {
         onUserUpdate(updatedUser);
       }
     } catch (err) {
-      setMessage({ type: 'error', text: 'Erro ao salvar. Tente novamente.' });
+      console.error('Erro ao salvar perfil:', err);
+      setMessage({ type: 'error', text: err.message || 'Erro ao salvar. Tente novamente.' });
     } finally {
       setIsSaving(false);
     }
@@ -165,13 +189,15 @@ const ProfilePage = ({ user: initialUser, onUserUpdate, onBack }) => {
     setMessage({ type: '', text: '' });
 
     try {
-      // Simulação - substituir por chamada real à API
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
+      // TODO: Implementar endpoint de alteração de senha no backend
+      // Por enquanto, a funcionalidade de alteração de senha não está disponível
+      // Quando o backend tiver o endpoint, usar:
+      // await api.changePassword({ senhaAtual: passwordData.senhaAtual, novaSenha: passwordData.novaSenha });
+      
+      setMessage({ type: 'info', text: 'Funcionalidade de alteração de senha será disponibilizada em breve.' });
       setPasswordData({ senhaAtual: '', novaSenha: '', confirmarSenha: '' });
-      setMessage({ type: 'success', text: 'Senha alterada com sucesso!' });
     } catch (err) {
-      setMessage({ type: 'error', text: 'Erro ao alterar senha. Verifique a senha atual.' });
+      setMessage({ type: 'error', text: err.message || 'Erro ao alterar senha. Verifique a senha atual.' });
     } finally {
       setIsSaving(false);
     }
@@ -537,7 +563,25 @@ const ProfilePage = ({ user: initialUser, onUserUpdate, onBack }) => {
                 <div className="profile-section danger-zone">
                   <h2>Zona de Perigo</h2>
                   <p>Ações irreversíveis para sua conta.</p>
-                  <button className="btn btn-danger">
+                  <button 
+                    className="btn btn-danger"
+                    onClick={async () => {
+                      if (window.confirm('Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita.')) {
+                        try {
+                          await api.deleteMe();
+                          api.setToken(null);
+                          setMessage({ type: 'success', text: 'Conta excluída com sucesso.' });
+                          // Redirecionar para home após exclusão
+                          setTimeout(() => {
+                            window.location.hash = '';
+                            window.location.reload();
+                          }, 1500);
+                        } catch (err) {
+                          setMessage({ type: 'error', text: err.message || 'Erro ao excluir conta. Tente novamente.' });
+                        }
+                      }
+                    }}
+                  >
                     🗑️ Excluir minha conta
                   </button>
                 </div>

@@ -74,6 +74,9 @@ export const api = {
   getMe() {
     return request('GET', '/api/usuarios/me', { baseUrl: api.getBaseUrl() });
   },
+  updateMe(payload) {
+    return request('PUT', '/api/usuarios/me', { body: payload, baseUrl: api.getBaseUrl() });
+  },
   deleteMe() {
     return request('DELETE', '/api/usuarios/me', { baseUrl: api.getBaseUrl() });
   },
@@ -177,5 +180,17 @@ export const api = {
   },
   recusarPagamento(id) {
     return request('PATCH', `/api/payments/${id}/reject`, { baseUrl: api.getBaseUrl() });
+  },
+
+  // OAuth2 Methods
+  getGoogleLoginUrl() {
+    const baseUrl = api.getBaseUrl();
+    return `${baseUrl}/oauth2/authorization/google`;
+  },
+  verifyOAuth2Token(token) {
+    return request('POST', '/api/auth/oauth2/verify-token', { 
+      body: { jwt: token }, 
+      baseUrl: api.getBaseUrl() 
+    });
   },
 };

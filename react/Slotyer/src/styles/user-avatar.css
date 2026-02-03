@@ -142,3 +142,50 @@
     padding: 10px 14px;
   }
 }
+
+/* ===== DARK THEME ===== */
+body.dark-theme .user-avatar-img {
+  border-color: #7ed8ff;
+  box-shadow: 0 2px 8px rgba(126, 216, 255, 0.2);
+}
+
+body.dark-theme .user-avatar-btn:focus {
+  outline-color: rgba(126, 216, 255, 0.5);
+}
+
+body.dark-theme .user-dropdown {
+  background: #2d3748;
+  border-color: #4a5568;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-theme .dropdown-header {
+  background: linear-gradient(135deg, #7ed8ff 0%, #667eea 100%);
+  color: #1a202c;
+}
+
+body.dark-theme .dropdown-avatar {
+  border-color: rgba(26, 32, 44, 0.3);
+}
+
+body.dark-theme .dropdown-divider {
+  background: #4a5568;
+}
+
+body.dark-theme .dropdown-item {
+  color: #e2e8f0;
+}
+
+body.dark-theme .dropdown-item:hover {
+  background: #4a5568;
+  color: #f7fafc;
+}
+
+body.dark-theme .dropdown-item.logout:hover {
+  background: rgba(245, 101, 101, 0.2);
+  color: #fc8181;
+}
+
+body.dark-theme .dropdown-backdrop {
+  background: rgba(0, 0, 0, 0.4);
+}

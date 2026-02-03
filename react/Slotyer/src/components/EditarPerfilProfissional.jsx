@@ -70,37 +70,22 @@ const EditarPerfilProfissional = ({ user, onBack, onUserUpdate }) => {
             const horariosData = await api.listHorarios(profissional.id);
             // Extrair os horários únicos
             const horariosUnicos = [...new Set(horariosData.map(h => h.horario || h.time))].sort();
-            setHorarios(horariosUnicos.length > 0 ? horariosUnicos : ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00']);
+            setHorarios(horariosUnicos);
             
             // Extrair os dias disponíveis
             const diasUnicos = [...new Set(horariosData.filter(h => h.disponivel !== false).map(h => h.data || h.date))].filter(Boolean);
             setDiasDisponiveis(diasUnicos);
           } catch (e) {
-            console.log('Erro ao carregar horários:', e);
-            setHorarios(['09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00']);
+            console.error('Erro ao carregar horários:', e);
+            setMessage({ type: 'error', text: 'Erro ao carregar horários. Verifique sua conexão.' });
+            setHorarios([]);
             setDiasDisponiveis([]);
           }
         }
         
       } catch (err) {
         console.error('Erro ao carregar dados:', err);
-        // Se falhar, usar dados do usuário logado como fallback
-        if (user) {
-          setFormData({
-            nome: user.nome || '',
-            profissao: user.profissao || user.specialty || '',
-            bio: user.bio || user.description || '',
-            telefone: user.telefone || user.phone || '',
-            instagram: user.instagram || '',
-            endereco: user.endereco || user.address || '',
-            cidade: user.cidade || user.city || '',
-            horarioFuncionamento: user.horarioFuncionamento || user.workingHours || '',
-            avatar: user.avatar || user.avatarUrl || '',
-            banner: user.banner || user.bannerUrl || ''
-          });
-        }
-        setMessage({ type: 'error', text: 'Erro ao carregar dados. Usando informações locais.' });
-        setTimeout(() => setMessage({ type: '', text: '' }), 5000);
+        setMessage({ type: 'error', text: 'Erro ao carregar dados do perfil. Verifique sua conexão com o servidor.' });
       } finally {
         setLoading(false);
       }

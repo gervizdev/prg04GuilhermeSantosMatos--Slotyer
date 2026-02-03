@@ -605,6 +605,21 @@ body.dark-theme .danger-zone p {
   color: #a0aec0;
 }
 
+body.dark-theme .profile-avatar-large {
+  border-color: #7ed8ff;
+  box-shadow: 0 4px 16px rgba(126, 216, 255, 0.3);
+}
+
+body.dark-theme .avatar-edit-btn {
+  background: #7ed8ff;
+  border-color: #2d3748;
+  color: #1a202c;
+}
+
+body.dark-theme .avatar-edit-btn:hover {
+  background: #63b3ed;
+}
+
 /* Responsivo */
 @media (max-width: 480px) {
   .profile-page-container {

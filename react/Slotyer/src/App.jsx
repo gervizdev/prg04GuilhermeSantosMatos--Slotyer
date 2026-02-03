@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Features from './components/Features';
+import Footer from './components/Footer';
 import LoginModal from './components/modals/LoginModal';
 import SignUpClienteModal from './components/modals/SignUpClienteModal';
 import SignUpModal from './components/modals/SignUpModal';
@@ -11,6 +12,7 @@ import ProfissionaisPage from './components/ProfissionaisPage';
 import PerfilProfissionalPage from './components/PerfilProfissionalPage';
 import PerfilPublicoPage from './components/PerfilPublicoPage';
 import EditarPerfilProfissional from './components/EditarPerfilProfissional';
+import OAuth2Callback from './components/OAuth2Callback';
 import { api } from './api';
 import './App.css';
 
@@ -49,6 +51,12 @@ function App() {
       }
       
       const hash = window.location.hash;
+
+      // Verificar se é o callback OAuth2
+      if (hash.includes('auth/callback')) {
+        setCurrentPage('oauth2-callback');
+        return;
+      }
       
       // Verificar se é um link direto para página pública (#publico/profissional/ID)
       const publicMatch = hash.match(/^#publico\/profissional\/(\d+)$/);
@@ -127,7 +135,7 @@ function App() {
   const handleVerPerfil = (profissionalId) => {
     isInternalNavigation.current = true;
     setSelectedProfissionalId(profissionalId);
-    setIsPublicProfile(false); // Navegação interna = página com abas
+    setIsPublicProfile(false); 
     setCurrentPage('perfil-profissional');
     window.location.hash = `profissional/${profissionalId}`;
   };
@@ -202,6 +210,7 @@ function App() {
         <>
           <Hero />
           <Features />
+          <Footer />
         </>
       )}
 
@@ -231,6 +240,10 @@ function App() {
 
       {currentPage === 'profissionais' && (
         <ProfissionaisPage onBack={handleBackToHome} onVerPerfil={handleVerPerfil} />
+      )}
+
+      {currentPage === 'oauth2-callback' && (
+        <OAuth2Callback />
       )}
 
       {currentPage === 'perfil-profissional' && !isPublicProfile && (

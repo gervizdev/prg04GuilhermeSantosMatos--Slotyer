@@ -88,11 +88,24 @@ const PerfilPublicoPage = ({ profissionalId, onVerTodosProfissionais, isLoggedIn
     }
     
     try {
+      // Primeiro, buscar o horário disponível para obter o horarioId
+      const dataFormatada = format(selectedDate, 'yyyy-MM-dd');
+      const horariosDisponiveis = await api.listHorariosPorData(profissionalId, dataFormatada);
+      
+      // Encontrar o horário correspondente
+      const horarioEncontrado = horariosDisponiveis.find(h => 
+        (h.horaInicio === selectedTime || h.horario === selectedTime) && h.disponivel !== false
+      );
+      
+      if (!horarioEncontrado) {
+        alert('Horário não disponível. Por favor, selecione outro horário.');
+        return;
+      }
+
       const agendamentoData = {
+        horarioId: horarioEncontrado.id,
         servicoId: selectedService.id,
-        profissionalId: profissionalId,
-        data: format(selectedDate, 'yyyy-MM-dd'),
-        horario: selectedTime,
+        observacoes: ''
       };
 
       await api.createAgendamento(agendamentoData);

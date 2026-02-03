@@ -220,3 +220,89 @@
   color: #4a5568;
   font-size: 1.1rem;
 }
+
+/* ===== DARK THEME ===== */
+body.dark-theme .profile {
+  background: #1a202c;
+}
+
+body.dark-theme .profile-header {
+  border-bottom-color: #4a5568;
+}
+
+body.dark-theme .profile-header h1 {
+  color: #f7fafc;
+}
+
+body.dark-theme .profile-avatar {
+  border-color: #7ed8ff;
+  box-shadow: 0 4px 12px rgba(126, 216, 255, 0.3);
+}
+
+body.dark-theme .change-avatar-btn {
+  background: #7ed8ff;
+  color: #1a202c;
+  box-shadow: 0 2px 8px rgba(126, 216, 255, 0.3);
+}
+
+body.dark-theme .change-avatar-btn:hover {
+  background: #63b3ed;
+}
+
+body.dark-theme .profile-info h2 {
+  color: #f7fafc;
+}
+
+body.dark-theme .profile-type {
+  color: #7ed8ff;
+}
+
+body.dark-theme .profile-profession {
+  color: #a0aec0;
+}
+
+body.dark-theme .form-group label {
+  color: #e2e8f0;
+}
+
+body.dark-theme .form-value {
+  color: #a0aec0;
+  border-bottom-color: #4a5568;
+}
+
+body.dark-theme .form-control {
+  background: #2d3748;
+  border-color: #4a5568;
+  color: #f7fafc;
+}
+
+body.dark-theme .form-control:focus {
+  border-color: #7ed8ff;
+  box-shadow: 0 0 0 3px rgba(126, 216, 255, 0.15);
+}
+
+body.dark-theme .form-control::placeholder {
+  color: #718096;
+}
+
+body.dark-theme .form-actions {
+  border-top-color: #4a5568;
+}
+
+body.dark-theme .btn-secondary {
+  background: #4a5568;
+  color: #e2e8f0;
+}
+
+body.dark-theme .btn-secondary:hover {
+  background: #718096;
+}
+
+body.dark-theme .spinner {
+  border-color: #4a5568;
+  border-top-color: #7ed8ff;
+}
+
+body.dark-theme .profile-loading p {
+  color: #a0aec0;
+}
