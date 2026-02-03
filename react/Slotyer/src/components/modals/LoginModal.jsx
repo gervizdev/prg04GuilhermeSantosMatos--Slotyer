@@ -21,8 +21,8 @@ const LoginModal = ({ onClose, onLoginSuccess, onSwitchToSignUp, reason }) => {
     setIsLoading(true);
 
     try {
-      // Chamar API de login (backend usa 'login' em vez de 'email')
-      const response = await api.login({ login: email, senha: password });
+      // Chamar API de login (backend espera 'email' no payload)
+      const response = await api.login({ email, senha: password });
       
       // Validar resposta da API - SEM FALLBACK
       if (!response || !response.token) {
