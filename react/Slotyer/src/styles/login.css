@@ -286,7 +286,7 @@ body.dark-theme .login-error {
 }
 
 /* Responsivo */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .login-card {
     padding: 28px 24px;
   }
@@ -300,7 +300,8 @@ body.dark-theme .login-error {
     gap: 12px;
     align-items: flex-start;
   }
-}  .login-divider {
+
+  .login-divider {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -363,3 +364,4 @@ body.dark-theme .login-error {
     gap: 12px;
     align-items: flex-start;
   }
+}
