@@ -5,6 +5,49 @@ import '../styles/profile-page.css';
 
 
 const ProfilePage = ({ user: initialUser, onUserUpdate, onBack }) => {
+    // Estados para migração para profissional
+    const [upgradeData, setUpgradeData] = useState({ profissao: '', telefone: '' });
+    const [upgradeLoading, setUpgradeLoading] = useState(false);
+    const [upgradeError, setUpgradeError] = useState('');
+
+    // Handler para mudança dos campos do modal
+    const handleUpgradeChange = (e) => {
+      const { name, value } = e.target;
+      setUpgradeData(prev => ({ ...prev, [name]: value }));
+    };
+
+    // Handler para submit do modal
+    const handleUpgradeSubmit = async (e) => {
+      e.preventDefault();
+      setUpgradeError('');
+      if (!upgradeData.profissao || upgradeData.profissao.length < 3) {
+        setUpgradeError('Informe sua profissão (mínimo 3 caracteres)');
+        return;
+      }
+      if (!upgradeData.telefone || upgradeData.telefone.length < 8) {
+        setUpgradeError('Informe um telefone válido');
+        return;
+      }
+      setUpgradeLoading(true);
+      try {
+        const payload = {
+          nome: formData.nome,
+          email: formData.email,
+          telefone: upgradeData.telefone,
+          tipo: 'PROFISSIONAL',
+          especialidade: upgradeData.profissao
+        };
+        const updated = await api.updateMe(payload);
+        setUser(updated);
+        setShowUpgradeModal(false);
+        setMessage({ type: 'success', text: 'Conta migrada para profissional com sucesso!' });
+        if (onUserUpdate) onUserUpdate(updated);
+      } catch (err) {
+        setUpgradeError(err.message || 'Erro ao migrar conta.');
+      } finally {
+        setUpgradeLoading(false);
+      }
+    };
   const [user, setUser] = useState(initialUser || null);
   const [activeTab, setActiveTab] = useState('perfil');
   const [isEditing, setIsEditing] = useState(false);
@@ -522,6 +565,7 @@ const ProfilePage = ({ user: initialUser, onUserUpdate, onBack }) => {
                   </div>
                 )}
 
+
                 <div className="profile-section profile-info-section">
                   <h2>Informações da Conta</h2>
                   <div className="info-grid">
@@ -538,6 +582,14 @@ const ProfilePage = ({ user: initialUser, onUserUpdate, onBack }) => {
                       </span>
                     </div>
                   </div>
+                  {/* Botão para migrar para profissional - agora abaixo do tipo de conta */}
+                  {(!isProfissional) && (
+                    <div style={{ margin:'32px 0 0 0', textAlign:'center' }}>
+                      <button onClick={()=>setShowUpgradeModal(true)} style={{ background:'#e0f7fa', color:'#006064', border:'1px solid #4dd0e1', borderRadius:8, padding:'12px 32px', fontWeight:700, cursor:'pointer', fontSize:'1.1rem', boxShadow:'0 2px 8px rgba(0,0,0,0.08)' }}>
+                        Quero ser profissional
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
