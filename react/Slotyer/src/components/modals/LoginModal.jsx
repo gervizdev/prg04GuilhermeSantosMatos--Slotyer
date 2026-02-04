@@ -101,8 +101,8 @@ const LoginModal = ({ onClose, onLoginSuccess, onSwitchToSignUp, reason }) => {
   };
 
   return (
-    <div className="login-page" onClick={handleOverlayClick}>
-      <div className="login-container">
+    <div className="login-page" onClick={handleOverlayClick} style={{ overflowY: 'auto', maxHeight: '100vh' }}>
+      <div className="login-container" style={{ maxHeight: '90vh', overflowY: 'auto' }}>
         <div className="login-card">
           {onClose && (
             <button className="login-close" onClick={onClose} aria-label="Fechar">
