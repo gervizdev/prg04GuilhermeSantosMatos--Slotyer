@@ -2,14 +2,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import { api } from '../api';
 import '../styles/profile-page.css';
 import '../styles/modal-upgrade.css';
+import { useUpdateUser } from '../hooks/useUpdateUser';
 
 
 
 const ProfilePage = ({ user: initialUser, onUserUpdate, onBack }) => {
     // Estados para migração para profissional
     const [upgradeData, setUpgradeData] = useState({ profissao: '', telefone: '' });
-    const [upgradeLoading, setUpgradeLoading] = useState(false);
     const [upgradeError, setUpgradeError] = useState('');
+
+    // Hook para atualização de usuário
+    const { updateUser, loading: updateLoading, error: updateError } = useUpdateUser();
 
     // Handler para mudança dos campos do modal
     const handleUpgradeChange = (e) => {
@@ -29,24 +32,29 @@ const ProfilePage = ({ user: initialUser, onUserUpdate, onBack }) => {
         setUpgradeError('Informe um telefone válido');
         return;
       }
-      setUpgradeLoading(true);
-      try {
-        const payload = {
-          nome: formData.nome,
-          email: formData.email,
-          telefone: upgradeData.telefone,
-          tipo: 'PROFISSIONAL',
-          especialidade: upgradeData.profissao
-        };
-        const updated = await api.updateMe(payload);
-        setUser(updated);
-        setShowUpgradeModal(false);
-        setMessage({ type: 'success', text: 'Conta migrada para profissional com sucesso!' });
-        if (onUserUpdate) onUserUpdate(updated);
-      } catch (err) {
-        setUpgradeError(err.message || 'Erro ao migrar conta.');
-      } finally {
-        setUpgradeLoading(false);
+
+      const payload = {
+        nome: formData.nome,
+        email: formData.email,
+        telefone: upgradeData.telefone,
+        tipo: 'PROFISSIONAL',
+        especialidade: upgradeData.profissao
+      };
+
+      const success = await updateUser(payload, {
+        onSuccess: (updatedUser) => {
+          setUser(updatedUser);
+          setShowUpgradeModal(false);
+          setMessage({ type: 'success', text: 'Conta migrada para profissional com sucesso!' });
+          if (onUserUpdate) onUserUpdate(updatedUser);
+        },
+        onError: (err) => {
+          setUpgradeError(err.message || 'Erro ao migrar conta.');
+        }
+      });
+
+      if (!success && updateError) {
+        setUpgradeError(updateError);
       }
     };
   const [user, setUser] = useState(initialUser || null);
@@ -199,11 +207,24 @@ const ProfilePage = ({ user: initialUser, onUserUpdate, onBack }) => {
         payload.profissao = formData.profissao;
         payload.specialty = formData.profissao;
         await api.updateMyProfessionalProfile(payload);
+        // Recarregar dados do usuário para consistência
+        try {
+          updatedUser = await api.getMe();
+        } catch (reloadErr) {
+          console.warn('Falha ao recarregar dados após update profissional:', reloadErr);
+          updatedUser = { ...user, ...formData };
+        }
       } else {
         // Atualizar perfil do cliente via API
         await api.updateMe(payload);
+        // Recarregar dados do usuário para consistência
+        try {
+          updatedUser = await api.getMe();
+        } catch (reloadErr) {
+          console.warn('Falha ao recarregar dados após update cliente:', reloadErr);
+          updatedUser = { ...user, ...formData };
+        }
       }
-      updatedUser = { ...user, ...formData };
 
       setUser(updatedUser);
       setIsEditing(false);
@@ -299,8 +320,8 @@ const ProfilePage = ({ user: initialUser, onUserUpdate, onBack }) => {
                   <input type="text" name="telefone" value={upgradeData.telefone} onChange={handleUpgradeChange} required minLength={8} />
                 </div>
                 {upgradeError && <div style={{ color:'#b71c1c', marginBottom:8 }}>{upgradeError}</div>}
-                <button type="submit" disabled={upgradeLoading}>
-                  {upgradeLoading ? 'Migrando...' : 'Migrar para profissional'}
+                <button type="submit" disabled={updateLoading}>
+                  {updateLoading ? 'Migrando...' : 'Migrar para profissional'}
                 </button>
                 <button type="button" onClick={()=>setShowUpgradeModal(false)}>
                   Cancelar
