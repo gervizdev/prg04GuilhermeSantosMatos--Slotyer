@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { api } from '../api';
 import '../styles/profile-page.css';
+import '../styles/modal-upgrade.css';
 
 
 
@@ -285,35 +286,29 @@ const ProfilePage = ({ user: initialUser, onUserUpdate, onBack }) => {
       <div className="profile-page-container">
         {/* Modal de upgrade para profissional */}
         {(!isProfissional && showUpgradeModal) && (
-          <div className="modal-upgrade-overlay" style={{ position: 'fixed', top:0, left:0, width:'100vw', height:'100vh', background:'rgba(0,0,0,0.3)', zIndex:1000, display:'flex', alignItems:'center', justifyContent:'center' }}>
-            <div className="modal-upgrade" style={{ background:'#fff', borderRadius:8, padding:32, minWidth:320, boxShadow:'0 2px 16px rgba(0,0,0,0.15)' }}>
-              <h2 style={{ marginBottom:16 }}>Migrar para conta profissional</h2>
+          <div className="modal-upgrade-overlay">
+            <div className="modal-upgrade">
+              <h2>Migrar para conta profissional</h2>
               <form onSubmit={handleUpgradeSubmit}>
-                <div style={{ marginBottom:12 }}>
+                <div>
                   <label>Profissão <span style={{color:'#d32f2f'}}>*</span>:</label><br/>
-                  <input type="text" name="profissao" value={upgradeData.profissao} onChange={handleUpgradeChange} style={{ width:'100%', padding:8, borderRadius:4, border:'1px solid #ddd' }} required minLength={3} />
+                  <input type="text" name="profissao" value={upgradeData.profissao} onChange={handleUpgradeChange} required minLength={3} />
                 </div>
-                <div style={{ marginBottom:12 }}>
+                <div>
                   <label>Telefone <span style={{color:'#d32f2f'}}>*</span>:</label><br/>
-                  <input type="text" name="telefone" value={upgradeData.telefone} onChange={handleUpgradeChange} style={{ width:'100%', padding:8, borderRadius:4, border:'1px solid #ddd' }} required minLength={8} />
+                  <input type="text" name="telefone" value={upgradeData.telefone} onChange={handleUpgradeChange} required minLength={8} />
                 </div>
                 {upgradeError && <div style={{ color:'#b71c1c', marginBottom:8 }}>{upgradeError}</div>}
-                <button type="submit" disabled={upgradeLoading} style={{ background:'#667eea', color:'#fff', border:'none', borderRadius:4, padding:'10px 20px', fontWeight:600, cursor:'pointer' }}>
+                <button type="submit" disabled={upgradeLoading}>
                   {upgradeLoading ? 'Migrando...' : 'Migrar para profissional'}
                 </button>
-                <button type="button" onClick={()=>setShowUpgradeModal(false)} style={{ marginLeft:12, background:'#eee', color:'#333', border:'none', borderRadius:4, padding:'10px 20px', fontWeight:600, cursor:'pointer' }}>Cancelar</button>
+                <button type="button" onClick={()=>setShowUpgradeModal(false)}>
+                  Cancelar
+                </button>
               </form>
             </div>
           </div>
         )}
-                {/* Botão para migrar para profissional */}
-                {(!isProfissional) && (
-                  <div style={{ margin:'24px 0', textAlign:'center' }}>
-                    <button onClick={()=>setShowUpgradeModal(true)} style={{ background:'#fffbe6', color:'#b8860b', border:'1px solid #ffe58f', borderRadius:6, padding:'10px 24px', fontWeight:600, cursor:'pointer', fontSize:'1rem' }}>
-                      Quero ser profissional
-                    </button>
-                  </div>
-                )}
         {/* Header */}
         <div className="profile-page-header">
           <button className="btn-back" onClick={onBack}>
