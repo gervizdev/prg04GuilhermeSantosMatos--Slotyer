@@ -1,49 +1,8 @@
-  // Função para migrar para profissional
-  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
-  const [upgradeData, setUpgradeData] = useState({ profissao: '', telefone: '' });
-  const [upgradeLoading, setUpgradeLoading] = useState(false);
-  const [upgradeError, setUpgradeError] = useState('');
-
-  const handleUpgradeChange = (e) => {
-    const { name, value } = e.target;
-    setUpgradeData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleUpgradeSubmit = async (e) => {
-    e.preventDefault();
-    setUpgradeError('');
-    if (!upgradeData.profissao || upgradeData.profissao.length < 3) {
-      setUpgradeError('Informe sua profissão (mínimo 3 caracteres)');
-      return;
-    }
-    if (!upgradeData.telefone || upgradeData.telefone.length < 8) {
-      setUpgradeError('Informe um telefone válido');
-      return;
-    }
-    setUpgradeLoading(true);
-    try {
-      // Atualizar tipo para profissional, enviando apenas os campos necessários
-      const payload = {
-        nome: formData.nome,
-        email: formData.email,
-        telefone: upgradeData.telefone,
-        tipo: 'PROFISSIONAL',
-        especialidade: upgradeData.profissao
-      };
-      const updated = await api.updateMe(payload);
-      setUser(updated);
-      setShowUpgradeModal(false);
-      setMessage({ type: 'success', text: 'Conta migrada para profissional com sucesso!' });
-      if (onUserUpdate) onUserUpdate(updated);
-    } catch (err) {
-      setUpgradeError(err.message || 'Erro ao migrar conta.');
-    } finally {
-      setUpgradeLoading(false);
-    }
-  };
 import React, { useState, useEffect, useRef } from 'react';
 import { api } from '../api';
 import '../styles/profile-page.css';
+
+
 
 const ProfilePage = ({ user: initialUser, onUserUpdate, onBack }) => {
   const [user, setUser] = useState(initialUser || null);
