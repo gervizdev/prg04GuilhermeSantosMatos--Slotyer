@@ -17,6 +17,10 @@ const LoginModal = ({ onClose, onLoginSuccess, onSwitchToSignUp, reason }) => {
       setError('Por favor, preencha email e senha');
       return;
     }
+    if (password.length < 6) {
+      setError('A senha deve ter pelo menos 6 dígitos');
+      return;
+    }
     
     setIsLoading(true);
 
