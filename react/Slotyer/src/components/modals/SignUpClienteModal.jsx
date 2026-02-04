@@ -190,7 +190,7 @@ const SignUpClienteModal = ({ onClose, onSignUpSuccess, onGoToProfessional, onSw
           )}
 
           <div className="form-group">
-            <label htmlFor="modal-nome">Nome Completo</label>
+            <label htmlFor="modal-nome">Nome Completo <span style={{color:'#d32f2f'}}>*</span></label>
             <input
               type="text"
               id="modal-nome"
@@ -203,7 +203,7 @@ const SignUpClienteModal = ({ onClose, onSignUpSuccess, onGoToProfessional, onSw
           </div>
 
           <div className="form-group">
-            <label htmlFor="modal-email">Email</label>
+            <label htmlFor="modal-email">Email <span style={{color:'#d32f2f'}}>*</span></label>
             <input
               type="email"
               id="modal-email"
@@ -217,7 +217,7 @@ const SignUpClienteModal = ({ onClose, onSignUpSuccess, onGoToProfessional, onSw
 
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="modal-senha">Senha</label>
+              <label htmlFor="modal-senha">Senha <span style={{color:'#d32f2f'}}>*</span></label>
               <div className="password-input-wrapper">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -239,7 +239,7 @@ const SignUpClienteModal = ({ onClose, onSignUpSuccess, onGoToProfessional, onSw
             </div>
 
             <div className="form-group">
-              <label htmlFor="modal-confirmar">Confirmar</label>
+              <label htmlFor="modal-confirmar">Confirmar <span style={{color:'#d32f2f'}}>*</span></label>
               <input
                 type={showPassword ? "text" : "password"}
                 id="modal-confirmar"
@@ -256,7 +256,7 @@ const SignUpClienteModal = ({ onClose, onSignUpSuccess, onGoToProfessional, onSw
           )}
 
           <div className="form-group">
-            <label htmlFor="modal-telefone">Telefone/WhatsApp</label>
+            <label htmlFor="modal-telefone">Telefone/WhatsApp <span style={{color:'#d32f2f'}}>*</span></label>
             <input
               type="tel"
               id="modal-telefone"

@@ -145,7 +145,7 @@ const LoginModal = ({ onClose, onLoginSuccess, onSwitchToSignUp, reason }) => {
             )}
 
             <div className="form-group">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">Email <span style={{color:'#d32f2f'}}>*</span></label>
               <input
                 type="email"
                 id="email"
@@ -157,7 +157,7 @@ const LoginModal = ({ onClose, onLoginSuccess, onSwitchToSignUp, reason }) => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="password">Senha</label>
+              <label htmlFor="password">Senha <span style={{color:'#d32f2f'}}>*</span></label>
               <input
                 type="password"
                 id="password"

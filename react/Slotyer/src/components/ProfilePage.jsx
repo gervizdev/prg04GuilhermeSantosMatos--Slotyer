@@ -1,3 +1,46 @@
+  // Função para migrar para profissional
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [upgradeData, setUpgradeData] = useState({ profissao: '', telefone: '' });
+  const [upgradeLoading, setUpgradeLoading] = useState(false);
+  const [upgradeError, setUpgradeError] = useState('');
+
+  const handleUpgradeChange = (e) => {
+    const { name, value } = e.target;
+    setUpgradeData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleUpgradeSubmit = async (e) => {
+    e.preventDefault();
+    setUpgradeError('');
+    if (!upgradeData.profissao || upgradeData.profissao.length < 3) {
+      setUpgradeError('Informe sua profissão (mínimo 3 caracteres)');
+      return;
+    }
+    if (!upgradeData.telefone || upgradeData.telefone.length < 8) {
+      setUpgradeError('Informe um telefone válido');
+      return;
+    }
+    setUpgradeLoading(true);
+    try {
+      // Atualizar tipo para profissional, enviando apenas os campos necessários
+      const payload = {
+        nome: formData.nome,
+        email: formData.email,
+        telefone: upgradeData.telefone,
+        tipo: 'PROFISSIONAL',
+        especialidade: upgradeData.profissao
+      };
+      const updated = await api.updateMe(payload);
+      setUser(updated);
+      setShowUpgradeModal(false);
+      setMessage({ type: 'success', text: 'Conta migrada para profissional com sucesso!' });
+      if (onUserUpdate) onUserUpdate(updated);
+    } catch (err) {
+      setUpgradeError(err.message || 'Erro ao migrar conta.');
+    } finally {
+      setUpgradeLoading(false);
+    }
+  };
 import React, { useState, useEffect, useRef } from 'react';
 import { api } from '../api';
 import '../styles/profile-page.css';
@@ -236,6 +279,37 @@ const ProfilePage = ({ user: initialUser, onUserUpdate, onBack }) => {
   return (
     <div className="profile-page">
       <div className="profile-page-container">
+        {/* Modal de upgrade para profissional */}
+        {(!isProfissional && showUpgradeModal) && (
+          <div className="modal-upgrade-overlay" style={{ position: 'fixed', top:0, left:0, width:'100vw', height:'100vh', background:'rgba(0,0,0,0.3)', zIndex:1000, display:'flex', alignItems:'center', justifyContent:'center' }}>
+            <div className="modal-upgrade" style={{ background:'#fff', borderRadius:8, padding:32, minWidth:320, boxShadow:'0 2px 16px rgba(0,0,0,0.15)' }}>
+              <h2 style={{ marginBottom:16 }}>Migrar para conta profissional</h2>
+              <form onSubmit={handleUpgradeSubmit}>
+                <div style={{ marginBottom:12 }}>
+                  <label>Profissão <span style={{color:'#d32f2f'}}>*</span>:</label><br/>
+                  <input type="text" name="profissao" value={upgradeData.profissao} onChange={handleUpgradeChange} style={{ width:'100%', padding:8, borderRadius:4, border:'1px solid #ddd' }} required minLength={3} />
+                </div>
+                <div style={{ marginBottom:12 }}>
+                  <label>Telefone <span style={{color:'#d32f2f'}}>*</span>:</label><br/>
+                  <input type="text" name="telefone" value={upgradeData.telefone} onChange={handleUpgradeChange} style={{ width:'100%', padding:8, borderRadius:4, border:'1px solid #ddd' }} required minLength={8} />
+                </div>
+                {upgradeError && <div style={{ color:'#b71c1c', marginBottom:8 }}>{upgradeError}</div>}
+                <button type="submit" disabled={upgradeLoading} style={{ background:'#667eea', color:'#fff', border:'none', borderRadius:4, padding:'10px 20px', fontWeight:600, cursor:'pointer' }}>
+                  {upgradeLoading ? 'Migrando...' : 'Migrar para profissional'}
+                </button>
+                <button type="button" onClick={()=>setShowUpgradeModal(false)} style={{ marginLeft:12, background:'#eee', color:'#333', border:'none', borderRadius:4, padding:'10px 20px', fontWeight:600, cursor:'pointer' }}>Cancelar</button>
+              </form>
+            </div>
+          </div>
+        )}
+                {/* Botão para migrar para profissional */}
+                {(!isProfissional) && (
+                  <div style={{ margin:'24px 0', textAlign:'center' }}>
+                    <button onClick={()=>setShowUpgradeModal(true)} style={{ background:'#fffbe6', color:'#b8860b', border:'1px solid #ffe58f', borderRadius:6, padding:'10px 24px', fontWeight:600, cursor:'pointer', fontSize:'1rem' }}>
+                      Quero ser profissional
+                    </button>
+                  </div>
+                )}
         {/* Header */}
         <div className="profile-page-header">
           <button className="btn-back" onClick={onBack}>
