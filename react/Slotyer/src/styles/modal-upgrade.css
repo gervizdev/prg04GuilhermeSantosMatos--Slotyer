@@ -1,5 +1,7 @@
+@import './theme-colors.css';
+
 .modal-upgrade {
-  background: var(--background-);
+  background: var(--modal-background);
   color: var(--text-color);
   border-radius: 12px;
   padding: 32px;
@@ -8,7 +10,7 @@
   transition: background 0.2s, color 0.2s;
 }
 body.dark-theme .modal-upgrade {
-  background: var(--background-dark);
+  background: var(--modal-background-dark);
   color: var(--text-color-dark);
 }
 .modal-upgrade-overlay {
@@ -31,7 +33,7 @@ body.dark-theme .modal-upgrade {
   padding: 8px;
   border-radius: 6px;
   border: 1px solid #ddd;
-  background: inherit;
+  background: var(--modal-secondary-background);
   color: inherit;
   margin-bottom: 8px;
   transition: background 0.2s, color 0.2s;
@@ -51,7 +53,7 @@ body.dark-theme .modal-upgrade button[type="submit"] {
   background: var(--color-primary-dark);
 }
 .modal-upgrade button[type="button"] {
-  background: #f5f5f5;
+  background: var(--modal-secondary-background);
   color: var(--text-color);
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -61,7 +63,7 @@ body.dark-theme .modal-upgrade button[type="submit"] {
   transition: background 0.2s, color 0.2s;
 }
 body.dark-theme .modal-upgrade button[type="button"] {
-  background: #222;
+  background: var(--modal-secondary-background-dark);
   color: var(--text-color-dark);
   border: 1px solid #444;
 }

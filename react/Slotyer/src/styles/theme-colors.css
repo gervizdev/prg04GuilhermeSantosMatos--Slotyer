@@ -1,0 +1,50 @@
+/* theme-colors.css: Centraliza todas as variáveis de cor do projeto */
+:root {
+  /* Backgrounds principais */
+  --background: #FFFFFF;
+  --background-dark: #121212;
+  --background-header: #CCCCCC;
+  --background-header-dark: #1F1F1F;
+
+  /* Modais */
+  --modal-background: #fff;
+  --modal-background-dark: #2d3748;
+  --modal-secondary-background: #f7fafc;
+  --modal-secondary-background-dark: #4a5568;
+  --modal-accent-background: #fed7d7;
+  --modal-accent-background-dark: #718096;
+  --modal-border: #edf2f7;
+  --modal-border-dark: #1a202c;
+
+  /* Textos */
+  --text-color: #333333;
+  --text-color-dark: #E0E0E0;
+  --text-color-muted: #a0aec0;
+  --text-color-accent: #b8860b;
+
+  /* Botões */
+  --color-primary: #1C3B5E;
+  --color-primary-dark: #4A90E2;
+  --color-secondary: #00BCD4;
+  --color-action: #FF8C00;
+  --color-action-dark: #FFB347;
+  --color-action-hover: #CC7000;
+  --color-action-hover-dark: #D49B3E;
+
+  /* Outros */
+  --transparent: transparent;
+  --error-bg: #fffbe6;
+  --error-border: #ffe58f;
+  --error-text: #b8860b;
+  --google-blue: #4285f4;
+}
+
+body.dark-theme {
+  --background: var(--background-dark);
+  --background-header: var(--background-header-dark);
+  --modal-background: var(--modal-background-dark);
+  --modal-secondary-background: var(--modal-secondary-background-dark);
+  --modal-accent-background: var(--modal-accent-background-dark);
+  --modal-border: var(--modal-border-dark);
+  --text-color: var(--text-color-dark);
+}

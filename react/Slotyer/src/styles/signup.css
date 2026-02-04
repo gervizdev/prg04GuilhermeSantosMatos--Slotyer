@@ -1,3 +1,4 @@
+@import './theme-colors.css';
 .signup {
   padding: 80px 20px;
   background: white;
@@ -206,7 +207,7 @@ body.dark-theme .form-terms {
 
 .signup-modal {
   position: relative;
-  background: #fff;
+  background: var(--modal-background);
   border-radius: 16px;
   padding: 32px;
   width: 100%;
@@ -230,7 +231,7 @@ body.dark-theme .form-terms {
   width: 32px;
   height: 32px;
   border: none;
-  background: #f7fafc;
+  background: var(--modal-secondary-background);
   border-radius: 8px;
   font-size: 1rem;
   color: #718096;
@@ -242,7 +243,7 @@ body.dark-theme .form-terms {
 }
 
 .signup-modal-close:hover {
-  background: #edf2f7;
+  background: var(--modal-border);
   color: #1a202c;
 }
 
@@ -301,7 +302,7 @@ body.dark-theme .form-terms {
 }
 
 .signup-modal-error {
-  background: #fed7d7;
+  background: var(--modal-accent-background);
   color: #c53030;
   padding: 12px 16px;
   border-radius: 8px;
@@ -379,7 +380,7 @@ body.dark-theme .form-terms {
   content: '';
   flex: 1;
   height: 1px;
-  background: #e2e8f0;
+  background: var(--modal-border);
 }
 
 .signup-modal-divider span {
@@ -390,7 +391,7 @@ body.dark-theme .form-terms {
 .btn-professional {
   width: 100%;
   padding: 12px;
-  background: #f7fafc;
+  background: var(--modal-secondary-background);
   color: #4a5568;
   border: 2px solid #e2e8f0;
   border-radius: 10px;
@@ -401,7 +402,7 @@ body.dark-theme .form-terms {
 }
 
 .btn-professional:hover {
-  background: #edf2f7;
+  background: var(--modal-border);
   border-color: #667eea;
   color: #667eea;
 }
@@ -409,7 +410,7 @@ body.dark-theme .form-terms {
 .btn-client {
   width: 100%;
   padding: 12px;
-  background: #f7fafc;
+  background: var(--modal-secondary-background);
   color: #4a5568;
   border: 2px solid #e2e8f0;
   border-radius: 10px;
@@ -420,7 +421,7 @@ body.dark-theme .form-terms {
 }
 
 .btn-client:hover {
-  background: #edf2f7;
+  background: var(--modal-border);
   border-color: #667eea;
   color: #667eea;
 }
@@ -428,7 +429,7 @@ body.dark-theme .form-terms {
 .btn-professional-switch {
   width: 100%;
   padding: 12px;
-  background: #f7fafc;
+  background: var(--modal-secondary-background);
   color: #4a5568;
   border: 2px solid #e2e8f0;
   border-radius: 10px;
@@ -439,7 +440,7 @@ body.dark-theme .form-terms {
 }
 
 .btn-professional-switch:hover {
-  background: #edf2f7;
+  background: var(--modal-border);
   border-color: #667eea;
   color: #667eea;
 }
@@ -474,17 +475,17 @@ body.dark-theme .signup-modal-overlay {
 }
 
 body.dark-theme .signup-modal {
-  background: #2d3748;
+  background: var(--modal-background-dark);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
 body.dark-theme .signup-modal-close {
-  background: #4a5568;
+  background: var(--modal-secondary-background-dark);
   color: #a0aec0;
 }
 
 body.dark-theme .signup-modal-close:hover {
-  background: #718096;
+  background: var(--modal-accent-background-dark);
   color: #f7fafc;
 }
 
@@ -501,13 +502,13 @@ body.dark-theme .signup-modal-form label {
 }
 
 body.dark-theme .signup-modal-form input {
-  background: #1a202c;
+  background: var(--modal-border-dark);
   border-color: #4a5568;
   color: #f7fafc;
 }
 
 body.dark-theme .signup-modal-form input:focus {
-  border-color: #7ed8ff;
+  border-color: var(--color-primary-dark);
   box-shadow: 0 0 0 3px rgba(126, 216, 255, 0.15);
 }
 
@@ -527,7 +528,7 @@ body.dark-theme .btn-signup-submit {
 
 body.dark-theme .signup-modal-divider::before,
 body.dark-theme .signup-modal-divider::after {
-  background: #4a5568;
+  background: var(--modal-secondary-background-dark);
 }
 
 body.dark-theme .signup-modal-divider span {
@@ -535,7 +536,7 @@ body.dark-theme .signup-modal-divider span {
 }
 
 body.dark-theme .btn-professional {
-  background: #1a202c;
+  background: var(--modal-border-dark);
   border-color: #4a5568;
   color: #e2e8f0;
 }
