@@ -12,6 +12,8 @@ const ProfilePage = ({ user: initialUser, onUserUpdate, onBack }) => {
   const [isLoading, setIsLoading] = useState(!initialUser);
   const [message, setMessage] = useState({ type: '', text: '' });
   const fileInputRef = useRef(null);
+  // Estado para modal de migração para profissional
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
   const [formData, setFormData] = useState({
     nome: '',
