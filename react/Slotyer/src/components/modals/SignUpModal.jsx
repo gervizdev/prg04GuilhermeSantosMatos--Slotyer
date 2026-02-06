@@ -93,7 +93,7 @@ const SignUpModal = ({ onClose, onSignUpSuccess, onSwitchToClient }) => {
 
       // Fazer login automático após registro
       try {
-        const loginResponse = await api.login({ login: payload.email, senha: payload.senha });
+        const loginResponse = await api.login({ email: payload.email, senha: payload.senha });
         
         if (!loginResponse || !loginResponse.token) {
           throw new Error('Erro ao fazer login após cadastro');
