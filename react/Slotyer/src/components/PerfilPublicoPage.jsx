@@ -202,7 +202,7 @@ const PerfilPublicoPage = ({ profissionalId, onVerTodosProfissionais, isLoggedIn
               </div>
             )}
             <div className="servicos-lista-agendamento">
-              {profissional.servicos
+              {(profissional.servicos || [])
                 .filter(servico => 
                   servico.nome.toLowerCase().includes(searchService.toLowerCase()) ||
                   servico.descricao.toLowerCase().includes(searchService.toLowerCase())
@@ -258,7 +258,7 @@ const PerfilPublicoPage = ({ profissionalId, onVerTodosProfissionais, isLoggedIn
             </div>
             {selectedDate ? (
               <div className="horarios-grid">
-                {profissional.horarios.map(hora => (
+                {(profissional.horarios || []).map(hora => (
                   <button
                     key={hora}
                     className={`horario-btn ${selectedTime === hora ? 'selected' : ''}`}
@@ -354,7 +354,7 @@ const PerfilPublicoPage = ({ profissionalId, onVerTodosProfissionais, isLoggedIn
               <div className="info-section">
                 <h3>⭐ Avaliações ({profissional.avaliacoes})</h3>
                 <div className="avaliacoes-compact">
-                  {profissional.avaliacoesDetalhadas.slice(0, 2).map(av => (
+                  {(profissional.avaliacoesDetalhadas || []).slice(0, 2).map(av => (
                     <div key={av.id} className="avaliacao-mini">
                       <div className="avaliacao-mini-header">
                         <span>{av.autor}</span>

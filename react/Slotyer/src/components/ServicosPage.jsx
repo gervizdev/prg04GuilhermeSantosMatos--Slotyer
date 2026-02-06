@@ -24,9 +24,10 @@ const ServicosPage = ({ onBack }) => {
       try {
         setLoading(true);
         const data = await api.listServicos();
-        setServicos(data);
+        setServicos(data || []);
       } catch (error) {
         console.error('Erro ao buscar serviços:', error);
+        setServicos([]);
       } finally {
         setLoading(false);
       }

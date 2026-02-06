@@ -269,7 +269,7 @@ const PerfilProfissionalPage = ({ profissionalId, onBack }) => {
             <div className="tab-servicos">
               <h3>🛠️ Serviços Oferecidos</h3>
               <div className="servicos-lista">
-                {profissional.servicos.map(servico => (
+                {(profissional.servicos || []).map(servico => (
                   <div key={servico.id} className="servico-item">
                     <div className="servico-info">
                       <h4>{servico.nome}</h4>
@@ -314,7 +314,7 @@ const PerfilProfissionalPage = ({ profissionalId, onBack }) => {
                   </div>
                 )}
                 <div className="servicos-select">
-                  {profissional.servicos
+                  {(profissional.servicos || [])
                     .filter(servico => 
                       servico.nome.toLowerCase().includes(searchService.toLowerCase()) ||
                       servico.descricao.toLowerCase().includes(searchService.toLowerCase())
@@ -364,7 +364,7 @@ const PerfilProfissionalPage = ({ profissionalId, onBack }) => {
               <div className="agendar-section">
                 <h4>3. Escolha o horário</h4>
                 <div className="horarios-disponiveis">
-                  {profissional.horarios.map(hora => (
+                  {(profissional.horarios || []).map(hora => (
                     <button
                       key={hora}
                       className={`horario-option ${selectedTime === hora ? 'selected' : ''}`}
@@ -414,7 +414,7 @@ const PerfilProfissionalPage = ({ profissionalId, onBack }) => {
               </div>
               
               <div className="avaliacoes-lista">
-                {profissional.avaliacoesDetalhadas.map(av => (
+                {(profissional.avaliacoesDetalhadas || []).map(av => (
                   <div key={av.id} className="avaliacao-item">
                     <div className="avaliacao-header">
                       <span className="avaliacao-autor">{av.autor}</span>
